@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    body{
+        background: #CDCDCD;
+    }
+    header{
+        width: 100%;
+        height: 60px;
+        background: #000;
+    }
+    .inputbox{
+        width: 800px;
+        height:100%;
+        margin: 0 auto;
+
+    }
+    .left{
+        float: left;
+        height: 100%;
+        width: 100px;
+        font-size: 36px;
+        font-family: '微软雅黑';
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
+        line-height: 60px;
+    }
+    .right{
+        float: right;
+        width: 600px;
+        height: 100%;
+        background: #000000;
+
+    }
+   .shuru{
+        display: block;
+        width: 500px;
+        height: 40px;
+        margin-top: 10px;
+        float: left;
+        border-radius: 5px;
+        outline: none;
+        padding: 5px;
+        box-sizing: border-box;
+        font-size: 20px;
+        font-family: '微软雅黑';
+        font-weight: 600;
+        color:black;
+
+    }
+   .submit{
+       float: right;
+       width: 60px;
+       height: 40px;
+       margin-top: 10px;
+       border-radius: 5px;
+       font-size: 24px;
+       text-align: center;
+       line-height: 40px;
+       background: #CCC;
+       color: #fff;
+   }
+    main{
+        width:800px;
+        height:auto;
+        margin: 0 auto;
+
+
+    }
+    .being,.finish{
+        width: 100%;
+        height: 60px;
+
+
+    }
+    .txt{
+        width: 100px;
+        float: left;
+
+        font-size: 24px;
+        line-height: 60px;
+        color: black;
+
+    }
+    .num{
+        float: right;
+        width:30px;
+        height: 30px;
+        background:#E6E6FA ;
+        border-radius: 40%;
+        margin-top: 10px;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+
+    }
+    footer{
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 28px;
+        color: #000;
+    }
+    #beign,#wan{
+        width: 100%;
+        height: auto;
+        /*background: red;*/
+        font-size: 24px;
+        line-height: 60px;
+    }
+    li{
+        width: 100%;
+        height: 40px;
+        margin: 10px 0;
+        background: #fff;
+    }
+    ul li{
+        background: #a3a3a3;
+    }
+    .change{
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top:10px;
+        margin-left:10px;
+        float: left;
+        
+    }
+    .txt{
+        display: block;
+       float: left;
+        margin-left:10px;
+        width: 600px;
+        height: 30px;
+        float: left;
+        margin-top: 5px;
+        background: #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        line-height: 30px;
+    }
+    .del{
+        width: 60px;
+        height: 20px;
+        margin-top:10px;
+        margin-left:10px;
+        float: left;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        background: #000;
+        color: #fff;
+        border-radius: 3px;
+
+    }
+</style>
+<body>
+    <header>
+        <div class="inputbox">
+            <div class="left">ToDoList</div>
+            <div class="right">
+                <input type="text" placeholder="添加ToDo" class="shuru">
+                <button class="submit">提交</button>
+            </div>
+        </div>
+    </header>
+<main>
+    <div class="being">
+        <div class="txt">正在进行</div>
+        <div class="num">0</div>
+    </div>
+    <ol id="beign">
+       <!-- <li id="li-1">
+            <input  class="change" type="checkbox">
+            <p id="p-1"></p>
+            <div class="del">删除</div>
+        </li>-->
+    </ol>
+    <div class="finish">
+        <div class="txt">已经完成</div>
+        <div class="num">0</div>
+    </div>
+    <ul id="wan">
+       <!-- <li>
+
+        </li>-->
+    </ul>
+</main>
+<footer>
+  hfy.cn
+</footer>
+</body>
+</html>
+<script>
+
+    function TodoList() {
+
+
+
+            //添加数据
+            let shuru=document.querySelector(".shuru");
+            let submit=document.querySelector(".submit");
+            let num1=0;
+            let num2=0;
+            let number1=document.querySelector(".being .num");
+            let number2=document.querySelector(".finish .num");
+            let str1=str2="";
+
+
+            let database=[
+                {id:0,content:"0"},
+                {id:1,content:"1"}
+            ];
+//            localStorage.data=JSON.stringify(database);
+
+            if(localStorage.data){
+                database = JSON.parse(localStorage.data);
+                num1=Number(database.length);
+                number1.innerText=num1;
+            }
+
+            database.forEach(val=>{
+
+                 str1+=`<li id="${val.id}">
+                            <input  class="change" type="checkbox" >
+                            <p id="p-${val.id}" class="txt">${val.content}</p>
+                            <div class="del" id="del-${val.id}">删除</div>
+                        </li>`;
+                    let being=document.querySelectorAll("ol")[0];
+                    being.innerHTML=str1;
+//                    console.log(val.id,val.content)
+                });
+
+        let fatabase=[
+            {id:2,content:"2"},
+            {id:3,content:"3"},
+        ];
+//        localStorage.fata=JSON.stringify(fatabase);
+
+        if(localStorage.fata){
+            fatabase = JSON.parse(localStorage.fata);
+            num2=Number(fatabase.length);
+            number2.innerText=num2;
+        }
+
+        fatabase.forEach(val=>{
+
+            str2+=`<li id="${val.id}">
+                            <input  class="change" type="checkbox" >
+                            <p id="p-${val.id}" class="txt">${val.content}</p>
+                            <div class="del" id="del-${val.id}">删除</div>
+                        </li>`;
+            let finish=document.querySelectorAll("ul")[0];
+            finish.innerHTML=str2;
+
+        });
+
+
+            submit.onclick= ()=> {
+                if(!shuru.value){
+                    alert("请输入字段！")
+                }
+                else{
+
+                    let being=document.querySelectorAll("ol")[0];
+                    let val=shuru.value;
+                    shuru.value=null;
+
+                    num1++;
+                    let str="";
+
+                        str+=`<li id="${num1}">
+                             <input  class="change" type="checkbox" >
+                             <p id="p-${num1}" class="txt">${val}</p>
+                             <div class="del" id="del-${num1}">删除</div>
+                             </li>`;
+
+
+                    being.innerHTML+=str;
+
+                    database.push({id:num1,content:val});
+                    localStorage.data=JSON.stringify(database);
+
+                    number1.innerText=`${num1}`;
+                }
+            }
+
+
+            let beign=document.querySelector("#beign");
+            let finish=document.querySelector("#wan");
+            beign.onclick=function(e){
+                let node=e.target;
+                let par=node.parentNode;
+                let a=par.id;
+
+
+                if(node.className=="del"){
+
+                    beign.removeChild(par);
+
+                    let index=database.findIndex(function (val) {
+                        return val.id==a;
+                    });
+
+                    database.splice(index,1);
+                    localStorage.data=JSON.stringify(database);
+                    num1--;
+                    number1.innerText=`${num1}`;
+                }
+                else if(node.className=="change"){
+                    beign.removeChild(par);
+                    let index=database.findIndex(function (val) {
+                        return val.id==a;
+                    });
+
+                    database.splice(index,1);
+                    localStorage.data=JSON.stringify(database);
+                    num1--;
+                    number1.innerText=`${num1}`;
+                    num2++;
+                    number2.innerText=num2;
+
+
+                    fatabase.push({id:a,content:node.nextElementSibling.innerText});
+                    localStorage.fata=JSON.stringify(fatabase);
+                    finish.appendChild(par);
+                }
+               /* else if(node.className="txt"){
+                        let input=document.createElement("input");
+                        let ptext=node.innerText;
+                        input.value=ptext;
+                        node.innerText=null;
+                        input.blur();
+                        node.appendChild(input);
+                }*/
+
+
+            }
+
+            finish.onclick=function (e) {
+                let del=e.target;
+                let par=del.parentNode;
+                let a=par.id;
+                if(del.className=="del"){
+                    finish.removeChild(del.parentNode);
+                    let index=fatabase.findIndex(function (val) {
+                        return val.id==a;
+                    });
+
+                    fatabase.splice(index,1);
+                    localStorage.fata=JSON.stringify(fatabase);
+                    num2--;
+                    number2.innerText=`${num2}`;
+
+
+                }
+                else if(del.className=="change"){
+                    finish.removeChild(par);
+                    let index=fatabase.findIndex(function (val) {
+                        return val.id==a;
+                    });
+
+                    fatabase.splice(index,1);
+                    localStorage.fata=JSON.stringify(fatabase);
+                    num2--;
+                    number2.innerText=`${num2}`;
+                    num1++;
+                    number1.innerText=num1;
+
+
+                    database.push({id:a,content:del.nextElementSibling.innerText});
+                    localStorage.data=JSON.stringify(database);
+                    beign.appendChild(par);
+                }
+            }
+        let chek=document.querySelectorAll("ul input");
+
+        for(let i=0;i<chek.length;i++){
+            chek[i].checked="true";
+        }
+
+
+
+    }
+TodoList();
+
+</script>
